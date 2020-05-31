@@ -4,6 +4,10 @@ import {
   Calculator, Screen
 } from './components/Styled';
 import Buttons from './components/Buttons';
+import Display from './components/Display';
+import Eq from './components/Eq';
+import {Provider} from './store';
+import reducer, {initialState} from './reducer';
 
 const Global = createGlobalStyle`
 :root {
@@ -25,16 +29,18 @@ body {
 
 function App() {
   return (
-    <div className="App">
-      <Global />
-      <Calculator>
-        <Screen>
-          <div></div>
-          <div id="display">0</div>
-        </Screen>
-        <Buttons />
-      </Calculator>
-    </div>
+    <Provider value={React.useReducer(reducer, initialState)}>
+      <div className="App">
+        <Global />
+        <Calculator>
+          <Screen>
+            <Eq />
+            <Display />
+          </Screen>
+          <Buttons />
+        </Calculator>
+      </div>
+    </Provider>
   );
 }
 
