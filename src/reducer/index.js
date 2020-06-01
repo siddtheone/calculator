@@ -1,9 +1,10 @@
 export const initialState = {
     toCalc: [],
-    screen: '0'
+    screen: '0',
+    isCalculated: false,
 }
 
-export const operators = ['+', '-', '*', '/'];
+export const operators = ['+', '-', 'X', '/'];
 
 export default function reducer(state, {action, payload}) {
   console.log(state, action, payload)
@@ -18,7 +19,7 @@ export default function reducer(state, {action, payload}) {
         return state;
       }
 
-      const {screen, toCalc} = state;
+      const {screen, toCalc, isCalculated} = state;
 
       if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '.'].indexOf(payload) > -1) {
         let newScreen;
@@ -39,13 +40,42 @@ export default function reducer(state, {action, payload}) {
         }
         return {
           toCalc: toCalcCopy,
-          screen: newScreen
+          screen: newScreen,
+          isCalculated: false,
         }
       } else if (operators.indexOf(payload) > -1) {
+        if(isCalculated) {
+          return {
+            toCalc: [screen],
+            screen: payload,
+            isCalculated: false
+          }
+        }
+
         if(!isNaN(screen)) {
           return {
             toCalc: [...toCalc, screen],
             screen: payload
+          }
+        } else {
+          if (payload !== '-') {
+            if (screen !== '-') {
+              return {
+                ...state,
+                screen: payload
+              }
+            } else {
+              return {
+                toCalc: [...toCalc.slice(0, -1)],
+                screen: payload,
+              }
+            }
+
+          } else {
+            return {
+              toCalc: [...toCalc, screen],
+              screen: payload
+            }
           }
         }
       }
@@ -57,7 +87,8 @@ export default function reducer(state, {action, payload}) {
       }
       return {
         toCalc: x,
-        screen: eval(x.join(' ')).toString()
+        isCalculated: true,
+        screen: eval(x.map(e => e === 'X' ? '*' : e).join(' ')).toString()
       }
     default:
       return state;

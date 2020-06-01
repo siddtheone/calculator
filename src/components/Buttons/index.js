@@ -84,7 +84,7 @@ export default function Buttons() {
   return (
     <React.Fragment>
       {BUTTONS.map((e) => (
-        <Button id={e.id} key={e.id} onClick={onClick} value={e.label === 'X' ? '*' : e.label}>
+        <Button id={e.id} key={e.id} onClick={onClick} value={e.label}>
           {e.label}
         </Button>
       ))}
