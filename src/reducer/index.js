@@ -73,9 +73,15 @@ export default function reducer(state, {action, payload}) {
             }
 
           } else {
-            return {
-              toCalc: [...toCalc, screen],
-              screen: payload
+            if (screen !== '-') {
+              return {
+                toCalc: [...toCalc, screen],
+                screen: payload
+              }
+            } else {
+              return {
+                ...state
+              }
             }
           }
         }
