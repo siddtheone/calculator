@@ -7,7 +7,7 @@ export const initialState = {
 export const operators = ['+', '-', 'X', '/'];
 
 export default function reducer(state, {action, payload}) {
-  console.log(state, action, payload)
+
   switch(action) {
     case 'reset':
       return {
@@ -15,10 +15,6 @@ export default function reducer(state, {action, payload}) {
         toCalc: [],
       };
     case 'enter':
-      if (state.screen === 'ERROR') {
-        return state;
-      }
-
       const {screen, toCalc, isCalculated} = state;
 
       if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '.'].indexOf(payload) > -1) {
@@ -30,6 +26,11 @@ export default function reducer(state, {action, payload}) {
             (screen.includes('.') && payload === '.')
         ) {
           newScreen = state.screen;
+        } else if (isCalculated) {
+          return {
+            ...initialState,
+            screen: payload,
+          }
         } else if (screen === '0' && payload > 0) {
           newScreen = payload.toString();
         } else if (operators.indexOf(screen) > -1) {
@@ -81,6 +82,9 @@ export default function reducer(state, {action, payload}) {
       }
       break;
     case 'calc':
+      if (state.isCalculated) {
+        return state;
+      }
       const x = [...state.toCalc, state.screen];
       if (operators.indexOf(x[x.length - 1]) > -1) {
         x.pop();

@@ -11,11 +11,11 @@ import reducer, {initialState} from './reducer';
 
 const Global = createGlobalStyle`
 :root {
-  --screenBG: black;
-  --screen: lightgreen;
-  --buttonsBG: black;
-  --buttonClearBG: darkred;
-  --buttonEqualBG: darkblue;
+  --screenBG: linear-gradient(to right, #ffb347 0%, #ffcc33 51%, #ffb347 100%);
+  --screen: white;
+  --buttonsBG: linear-gradient(to right, #41295a 0%, #2F0743 51%, #41295a 100%);
+  --buttonClearBG: linear-gradient(to right, #f85032 0%, #e73827 51%, #f85032 100%);
+  --buttonEqualBG: linear-gradient(to right, #141E30 0%, #243B55 51%, #141E30 100%);
   --buttonsText: white;
 }
 *, *::after, *::before {

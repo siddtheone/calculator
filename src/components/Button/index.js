@@ -7,14 +7,16 @@ const Button = styled.button`
     outline: none;
     transition: .5s;
     cursor: pointer;
-    background: var(${({id}) => id === 'clear' ? '--buttonClearBG' : id === 'equals' ? '--buttonEqualBG' : '--buttonsBG'});
+    background-image: var(${({id}) => id === 'clear' ? '--buttonClearBG' : id === 'equals' ? '--buttonEqualBG' : '--buttonsBG'});
     color: var(--buttonsText);
     grid-column: span ${({id}) => ['clear', 'zero'].indexOf(id) > -1 ? '2' : '1'};
     grid-row: span ${({id}) => id === 'equals' ? '2' : '1'};
-    &:hover {
-        opacity: 0.8;
+
+    &:active {
+      transform: scale(.9)
     }
-    
+
 `;
 
 export default Button;
+
