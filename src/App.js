@@ -6,6 +6,7 @@ import {
 import Buttons from './components/Buttons';
 import Display from './components/Display';
 import Eq from './components/Eq';
+import ErrorBoundary from './components/ErrorBoundary';
 import {Provider} from './store';
 import reducer, {initialState} from './reducer';
 
@@ -30,16 +31,18 @@ body {
 function App() {
   return (
     <Provider value={React.useReducer(reducer, initialState)}>
-      <div className="App">
-        <Global />
-        <Calculator>
-          <Screen>
-            <Eq />
-            <Display />
-          </Screen>
-          <Buttons />
-        </Calculator>
-      </div>
+      <ErrorBoundary>
+        <div className="App">
+          <Global />
+          <Calculator>
+            <Screen>
+              <Eq />
+              <Display />
+            </Screen>
+            <Buttons />
+          </Calculator>
+        </div>
+      </ErrorBoundary>
     </Provider>
   );
 }

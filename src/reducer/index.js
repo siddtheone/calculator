@@ -29,7 +29,7 @@ export default function reducer(state, {action, payload}) {
         } else if (isCalculated) {
           return {
             ...initialState,
-            screen: payload,
+            screen: payload.toString(),
           }
         } else if (screen === '0' && payload > 0) {
           newScreen = payload.toString();
